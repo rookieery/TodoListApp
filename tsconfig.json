@@ -1,6 +1,7 @@
 {
     "version": "1.0.0",
     "compilerOptions": {
+      "experimentalDecorators": true,
       "baseUrl": "./",  //解析非相对模块的基准目录
       "paths": {  //路径映射，如在文件中使用‘~/’相当于‘src/’
         "~/*": ["src/*"],
