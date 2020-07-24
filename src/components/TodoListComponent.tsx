@@ -1,11 +1,11 @@
 import * as React from 'react'
-import { IReduxState } from '../interface/interface';
+import { IReduxState } from '../interfaces/interfaces';
 import { connect } from 'react-redux';
 
 
 const mapStateToProps = (state: IReduxState) => {
   return {
-    status:state.todoList
+    todoList:state.todoList
   }
 }
 

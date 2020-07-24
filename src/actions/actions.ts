@@ -1,4 +1,4 @@
-import { IToDo, ToDoStatus, FilterStatus } from '../interface/interface';
+import { IToDo, ToDoStatus, FilterStatus, PageStatus } from '../interfaces/interfaces';
 
 let nextTodoId = 0;
 const TODO_ADD = 'TODO_ADD';
@@ -21,7 +21,7 @@ export const actionDeleteTodo = (id: number) => ({
   id
 });
 
-//TODO
+
 const TODO_STATUS = 'TODO_STATUS';
 export const actionSetStatusType = (id: number, status: ToDoStatus) => ({
   type: TODO_STATUS,
@@ -30,10 +30,19 @@ export const actionSetStatusType = (id: number, status: ToDoStatus) => ({
 });
 
 const SET_FILTER_TYPE = 'SET_FILTER_TYPE';
-//TODO
 export const actionSetFilterType = (filter: FilterStatus) => ({
   type: SET_FILTER_TYPE,
   filter
 });
 
+const SET_PAGE_TYPE = 'SET_PAGE_TYPE';
+export const actionSetPageType = (page: PageStatus) => ({
+  type: SET_PAGE_TYPE,
+  page
+});
 
+const JUMP_PAGE_ID = 'JUMP_PAGE_ID';
+export const actionJumpPageId = (id: number) => ({
+  type: JUMP_PAGE_ID,
+  id
+});

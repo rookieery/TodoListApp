@@ -2,8 +2,8 @@
   "name": "webpack-react-scss-electron",
   "version": "1.0.0",
   "description": "webpack-react-scss-electron",
-  "main": "main.js",
-  "author": "Yin Xu",
+  "main": "index.tsx",
+  "author": "Rookie",
   "license": "MIT",
   "scripts": {
     "dev": "webpack-dev-server --mode=development --config=./webpack.config.dev.js"

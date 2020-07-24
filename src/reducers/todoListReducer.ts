@@ -1,6 +1,6 @@
-import { IReduxState } from "../interface/interface";
+import { IReduxState } from "../interfaces/interfaces";
 
-const todoList = (state: IReduxState["todoList"] = [], action: any) => {
+const todoList = (state: IReduxState['todoList'] = [], action: { type: string; } & any) => {
   switch (action.type) {
     case 'TODO_ADD':
       return [

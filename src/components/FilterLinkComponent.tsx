@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { IReduxState, FilterStatus } from '../interface/interface';
+import { IReduxState, FilterStatus } from '../interfaces/interfaces';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state: IReduxState) => {

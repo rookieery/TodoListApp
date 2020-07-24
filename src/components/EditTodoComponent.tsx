@@ -1,16 +1,15 @@
 import * as React from 'react'
-import { IToDo } from '../interface/interface';
+import { IReduxState, IToDo } from '../interfaces/interfaces';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state: IReduxState) => {
   return {
-    status:state.filterStatus
+    todo: state.todoList.find(todo => todo.id === state.id),
   }
 }
 
 type EditTodoProps = {
-  todo: IToDo;
-  id:number;
+  todo?: IToDo
 };
 @(connect(mapStateToProps) as ClassDecorator)
 export default class EditTodo extends React.Component<EditTodoProps> {

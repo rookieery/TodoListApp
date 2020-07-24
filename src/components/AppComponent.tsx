@@ -6,7 +6,6 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        {/* Jump AddTodo*/}
         <a href="">Create New</a>
         <Filter />
         <TodoList />
