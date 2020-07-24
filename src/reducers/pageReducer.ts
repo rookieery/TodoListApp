@@ -1,6 +1,6 @@
-import { IReduxState } from "../interfaces/interfaces";
+import { IReduxState, PageStatus } from "../interfaces/interfaces";
 
-const pageType = (state: IReduxState['pageStatus'], action: { type: string; } & any) => {
+const pageStatus = (state: IReduxState['pageStatus'] = PageStatus.App, action: { type: string; } & any) => {
   switch (action.type) {
     case 'SET_PAGE_TYPE':
       return action.page;
@@ -8,4 +8,4 @@ const pageType = (state: IReduxState['pageStatus'], action: { type: string; } & 
       return state;
   }
 }
-export default pageType;
+export default pageStatus;

@@ -1,15 +1,18 @@
 import * as React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import todoApp from './reducers'
 import Main from './components/MainComponent'
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-let store = createStore(todoApp)
+const store = createStore(todoApp, composeWithDevTools(
+  applyMiddleware()
+));
 
 render(
   <Provider store={store}>
-    <Main/>
+    <Main />
   </Provider>,
   document.getElementById('root')
 )

@@ -1,4 +1,5 @@
-import { IReduxState } from "../interfaces/interfaces";
+import { IReduxState, ToDoStatus } from "../interfaces/interfaces";
+
 
 const todoList = (state: IReduxState['todoList'] = [], action: { type: string; } & any) => {
   switch (action.type) {
@@ -12,7 +13,7 @@ const todoList = (state: IReduxState['todoList'] = [], action: { type: string; }
           createdTime: String(new Date()),// TODO
           expiredTime: action.todo.expiredTime,
           emailAddress: action.todo.emailAddress,
-          status: 'New',
+          status: ToDoStatus.New,
         }
       ]
     case 'TODO_EDIT':
@@ -34,7 +35,7 @@ const todoList = (state: IReduxState['todoList'] = [], action: { type: string; }
     case 'TODO_STATUS':
       return state.map(todo =>
         (todo.id === action.id)
-          ? {...todo,status: action.status}
+          ? { ...todo, status: action.status }
           : todo
       )
     default:

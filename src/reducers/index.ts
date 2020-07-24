@@ -1,12 +1,14 @@
 import {combineReducers} from 'redux';
 import todoList from './todoListReducer';
 import filterStatus from './filterReducer';
-import pageType from './pageReducer';
+import pageStatus from './pageReducer';
+import id from './idReducer';
 
 const todoApp = combineReducers({
   todoList,
   filterStatus,
-  pageType,
+  pageStatus,
+  id,
 });
 
 export default todoApp;

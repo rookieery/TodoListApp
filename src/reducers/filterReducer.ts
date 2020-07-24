@@ -1,6 +1,6 @@
-import { IReduxState } from "../interfaces/interfaces";
+import { IReduxState, FilterStatus } from "../interfaces/interfaces";
 
-const filterStatus = (state: IReduxState['filterStatus'], action: { type: string; } & any) => {
+const filterStatus = (state: IReduxState['filterStatus'] = FilterStatus.All, action: { type: string; } & any) => {
   switch (action.type) {
     case 'SET_FILTER_TYPE':
       return action.filter;

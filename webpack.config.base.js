@@ -47,7 +47,7 @@ const configBase = {
         alias: {
             '~':  path.resolve(__dirname, './src/'),
         },
-        extensions: ['ts', '.tsx', '.js', '.jsx', '.scss', 'css']
+        extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss', 'css']
     },
     plugins: [
         new HtmlWebPackPlugin({

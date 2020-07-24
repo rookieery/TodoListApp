@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = (state: IReduxState) => {
   return {
-    status: state.pageStatus
+    pageStatus: state.pageStatus
   }
 }
 

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import FilterLink from './FilterLinkComponent';
+import { FilterStatus } from '../interfaces/interfaces';
 
 export default class Filter extends React.Component {
   render() {
@@ -7,17 +8,13 @@ export default class Filter extends React.Component {
       <p>
         Show:
         {' '}
-        <FilterLink filter='All' />
-          All
+        <FilterLink filter={FilterStatus.All} />
         {', '}
-        <FilterLink filter='New' />
-          New
+        <FilterLink filter={FilterStatus.New} />
         {', '}
-        <FilterLink filter='Done' />
-          Done
+        <FilterLink filter={FilterStatus.Done} />
         {', '}
-        <FilterLink filter='Expired' />
-          Expired
+        <FilterLink filter={FilterStatus.Expired} />
       </p>
     )
   }
