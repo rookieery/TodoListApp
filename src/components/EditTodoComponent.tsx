@@ -14,32 +14,54 @@ type EditTodoProps = {
   todo?: IToDo;
   dispatch?: Dispatch;
 };
+
 @(connect(mapStateToProps) as ClassDecorator)
 export default class EditTodo extends React.Component<EditTodoProps> {
-   state = {
-    title: '',
+  state = {
+    title: this.props.todo.title,
+    text: this.props.todo.text,
+    expiredTime: this.props.todo.expiredTime,
+    emailAddress: this.props.todo.emailAddress,
+    status: this.props.todo.status,
   }
   private jumpToAppPage = () => {
     this.props.dispatch(actionSetPageType(PageStatus.App));
   }
 
-  private saveTodo = (e: any) => {
+  private saveTodo = () => {
     const todo = {
       id: this.props.todo.id,
-      title: (e.target)['0'].value,
-      text: (e.target)['1'].value,
+      title: this.state.title,
+      text: this.state.text,
       createdTime: this.props.todo.createdTime,
-      expiredTime: (e.target)['2'].value,
-      emailAddress: (e.target)['3'].value,
-      status: (e.target)['4'].value
+      expiredTime: this.state.expiredTime,
+      emailAddress: this.state.emailAddress,
+      status: this.state.status
     };
     this.props.dispatch(actionEditTodo(this.props.todo.id, todo));
     this.jumpToAppPage();
   }
 
-  private changeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
-    this.setState({ title:e.target.value })
+  private changeValue = (e: React.ChangeEvent<HTMLInputElement & HTMLSelectElement>) => {
+    switch (e.target.name) {
+      case 'title':
+        this.setState({ title: e.target.value });
+        break;
+      case 'text':
+        this.setState({ text: e.target.value });
+        break;
+      case 'expiredTime':
+        this.setState({ expiredTime: e.target.value });
+        break;
+      case 'emailAddress':
+        this.setState({ emailAddress: e.target.value });
+        break;
+      case 'status':
+        this.setState({ status: e.target.value });
+        break;
+      default:
+        break;
+    }
   }
 
   render() {
@@ -48,19 +70,19 @@ export default class EditTodo extends React.Component<EditTodoProps> {
         <h3>Edit</h3>
         <form action="javascript:void(0)" onSubmit={this.saveTodo}>
           <label htmlFor="">Title</label>
-          <input type="text" value={this.state.title} onChange={this.changeValue}/>
+          <input type="text" name='title' value={this.state.title} onChange={this.changeValue} />
           <br />
           <label htmlFor="">Text</label>
-          <input type="text" value={this.props.todo.text} />
+          <input type="text" name='text' value={this.state.text} onChange={this.changeValue} />
           <br />
           <label htmlFor="">ExpiredTime</label>
-          <input type="text" value={this.props.todo.expiredTime} />
+          <input type="text" name='expiredTime' value={this.state.expiredTime} onChange={this.changeValue} />
           <br />
           <label htmlFor="">EmailAddress</label>
-          <input type="text" value={this.props.todo.emailAddress} />
+          <input type="text" name='emailAddress' value={this.state.emailAddress} onChange={this.changeValue} />
           <br />
           <label htmlFor="">Status</label>
-          <select name="" id="">
+          <select name='status' value={this.state.status} onChange={this.changeValue}>
             <option >{ToDoStatus.New}</option>
             <option >{ToDoStatus.Done}</option>
           </select>

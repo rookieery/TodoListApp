@@ -26,7 +26,7 @@ const todoList = (state: IReduxState['todoList'] = [], action: { type: string; }
             createdTime: todo.createdTime,
             expiredTime: action.todo.expiredTime,
             emailAddress: action.todo.emailAddress,
-            status: todo.status,
+            status: action.todo.status, // TODO
           }
           : todo
       )
