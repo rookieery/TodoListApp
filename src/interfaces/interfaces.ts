@@ -1,7 +1,6 @@
 export enum ToDoStatus {
   New = 'New',
   Done = 'Done',
-  Expired = 'Expired',
 }
 export enum FilterStatus {
   All = 'All',

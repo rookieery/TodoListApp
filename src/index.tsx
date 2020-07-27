@@ -5,6 +5,7 @@ import { createStore, applyMiddleware } from 'redux'
 import todoApp from './reducers'
 import Main from './components/MainComponent'
 import { composeWithDevTools } from 'redux-devtools-extension';
+import './sass/index.scss';
 
 const store = createStore(todoApp, composeWithDevTools(
   applyMiddleware()

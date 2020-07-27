@@ -3,6 +3,7 @@ import { IReduxState, IToDo, PageStatus, ToDoStatus } from '../interfaces/interf
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { actionSetPageType, actionEditTodo } from '../actions/actions';
+import checkAll from '../utils/checkAll';
 
 const mapStateToProps = (state: IReduxState) => {
   return {
@@ -14,9 +15,15 @@ type EditTodoProps = {
   todo?: IToDo;
   dispatch?: Dispatch;
 };
-
+type EditTodoStates = {
+  title: string;
+  text: string;
+  expiredTime: string;
+  emailAddress: string;
+  status: ToDoStatus;
+}
 @(connect(mapStateToProps) as ClassDecorator)
-export default class EditTodo extends React.Component<EditTodoProps> {
+export default class EditTodo extends React.Component<EditTodoProps, EditTodoStates> {
   state = {
     title: this.props.todo.title,
     text: this.props.todo.text,
@@ -29,6 +36,9 @@ export default class EditTodo extends React.Component<EditTodoProps> {
   }
 
   private saveTodo = () => {
+    if (!checkAll(this.state)) {
+      return;
+    }
     const todo = {
       id: this.props.todo.id,
       title: this.state.title,
@@ -57,7 +67,7 @@ export default class EditTodo extends React.Component<EditTodoProps> {
         this.setState({ emailAddress: e.target.value });
         break;
       case 'status':
-        this.setState({ status: e.target.value });
+        this.setState({ status: e.target.value as ToDoStatus });
         break;
       default:
         break;
@@ -66,28 +76,32 @@ export default class EditTodo extends React.Component<EditTodoProps> {
 
   render() {
     return (
-      <div>
-        <h3>Edit</h3>
+      <div className='container'>
+        <h2>Edit</h2>
         <form action="javascript:void(0)" onSubmit={this.saveTodo}>
           <label htmlFor="">Title</label>
-          <input type="text" name='title' value={this.state.title} onChange={this.changeValue} />
+          <input type="text" className='form-control' name='title' value={this.state.title} onChange={this.changeValue} />
+          <span id='title'></span>
           <br />
           <label htmlFor="">Text</label>
-          <input type="text" name='text' value={this.state.text} onChange={this.changeValue} />
+          <input type="text" className='form-control' name='text' value={this.state.text} onChange={this.changeValue} />
+          <span id='text'></span>
           <br />
           <label htmlFor="">ExpiredTime</label>
-          <input type="text" name='expiredTime' value={this.state.expiredTime} onChange={this.changeValue} />
+          <input type="text" className='form-control' name='expiredTime' value={this.state.expiredTime} onChange={this.changeValue} />
+          <span id='expiredTime'></span>
           <br />
           <label htmlFor="">EmailAddress</label>
-          <input type="text" name='emailAddress' value={this.state.emailAddress} onChange={this.changeValue} />
+          <input type="text" className='form-control' name='emailAddress' value={this.state.emailAddress} onChange={this.changeValue} />
+          <span id='emailAddress'></span>
           <br />
           <label htmlFor="">Status</label>
-          <select name='status' value={this.state.status} onChange={this.changeValue}>
+          <select name='status' className='form-control' value={this.state.status} onChange={this.changeValue}>
             <option >{ToDoStatus.New}</option>
             <option >{ToDoStatus.Done}</option>
           </select>
           <br />
-          <input type='submit' value='Save' />
+          <input type='submit' className='btn-primary' value='Save' />
         </form>
         <a href="javascript:void(0)" onClick={this.jumpToAppPage}>Back to List</a>
       </div>

@@ -1,0 +1,79 @@
+*{
+    box-sizing: border-box;
+}
+
+@mixin  blockHorizontalCenter {
+    display: block;
+    margin: 0 auto;
+}
+#emailAddress,#expiredTime,#title,#text{
+    color: #dc3545;
+    display: block;
+}
+
+.table{
+    margin: 0 auto;
+    th,td{
+        padding: 0.75rem;
+        border-top: 1px solid #dee2e6;
+    }
+}
+
+a{
+    color: #0366d6;
+    text-decoration: none;
+    &:hover{
+        color: #0056b3;
+        text-decoration: underline;
+    }
+}
+
+h2{
+    font-size: 2rem;
+}
+.container {
+   text-align: center;
+}
+
+label{
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+.form-control {
+    @include blockHorizontalCenter();
+    width: 350px;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    &:focus{
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+}
+
+
+.btn-primary {
+    @include blockHorizontalCenter();
+    cursor: pointer;
+    width: 100px;
+    height: 40px;
+    font-family: Arial;
+    border-radius: 10px;
+    color: #fff;
+    background-color: rgb(57, 190, 243);
+    border: none;
+    margin-bottom: 10px;
+    &:hover{
+        background-color: rgb(5, 131, 180) ;
+    }
+}

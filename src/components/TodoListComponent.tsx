@@ -2,7 +2,8 @@ import * as React from 'react'
 import { IReduxState, FilterStatus, ToDoStatus, PageStatus } from '../interfaces/interfaces';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { actionSetPageType, actionDeleteTodo, actionJumpPageId } from '../actions/actions';
+import { actionSetPageType, actionDeleteTodo, actionJumpPageId, actionSetStatusType } from '../actions/actions';
+import isExpired from '../utils/checkExpired';
 
 
 const mapStateToProps = (state: IReduxState) => {
@@ -17,16 +18,18 @@ type TodoListProps = {
   status?: FilterStatus;
   dispatch?: Dispatch;
 };
+
 @(connect(mapStateToProps) as ClassDecorator)
 export default class TodoList extends React.Component<TodoListProps> {
+
   private getVisibleTodoS = () => {
     switch (this.props.status) {
       case FilterStatus.New:
-        return this.props.todoList.filter(todo => todo.status === ToDoStatus.New);
+        return this.props.todoList.filter(todo => todo.status === ToDoStatus.New && !isExpired(todo.expiredTime, todo.createdTime));
       case FilterStatus.Done:
-        return this.props.todoList.filter(todo => todo.status === ToDoStatus.Done);
+        return this.props.todoList.filter(todo => todo.status === ToDoStatus.Done && !isExpired(todo.expiredTime, todo.createdTime));
       case FilterStatus.Expired:
-        return this.props.todoList.filter(todo => todo.status === ToDoStatus.Expired);
+        return this.props.todoList.filter(todo => isExpired(todo.expiredTime, todo.createdTime));
       case FilterStatus.All:
       default:
         return this.props.todoList;
@@ -45,10 +48,14 @@ export default class TodoList extends React.Component<TodoListProps> {
     }
   }
 
+  private changeValue = (e: React.ChangeEvent<HTMLSelectElement>, id: number) => {
+    this.props.dispatch(actionSetStatusType(id, e.target.value as ToDoStatus));
+  }
+
   render() {
     const todoList = this.getVisibleTodoS();
     return (
-      <table>
+      <table className='table'>
         <thead>
           <th>Id</th>
           <th>Title</th>
@@ -62,10 +69,26 @@ export default class TodoList extends React.Component<TodoListProps> {
         <tbody>
           {todoList.map(todo => (
             <tr>{
-              Object.values(todo).map(value =>//TODO status
-                <td>{value}</td>
-              )
+              Object.values(todo)
+                .filter(value => (Object.values(todo).indexOf(value) <= 5))
+                .map(value => <td>{value}</td>)
             }
+              {
+                isExpired(todo.expiredTime, todo.createdTime)
+                  ?
+                  <td>
+                    {'Expired'}
+                  </td>
+                  :
+                  <td>
+                    <select name='status' value={todo.status} onChange={(e) => {
+                      return this.changeValue(e, todo.id);
+                    }}>
+                      <option >{ToDoStatus.New}</option>
+                      <option >{ToDoStatus.Done}</option>
+                    </select>
+                  </td>
+              }
               <td>
                 <a href="javascript:void(0)" onClick={() => {
                   return this.jumpToEditPage(todo.id);

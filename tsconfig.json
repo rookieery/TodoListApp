@@ -15,6 +15,6 @@
       "strictNullChecks": false,  //在严格的 null检查模式下， null和 undefined值不包含在任何类型里，只允许用它们自己和 any来赋值（有个例外， undefined可以赋值到 void）
       "lib": ["es2015", "dom", "es2015.promise"]  //编译过程中需要引入的库文件的列表
     },
-    "include": ["src/**/*"], //编译包含在  src及其子目录下的所有匹配的文件
+    "include": ["src/**/*", "src/index.tsx"], //编译包含在  src及其子目录下的所有匹配的文件
     "exclude": ["dist", "node_modules"]  //编译时排除 dist、node_modules文件夹
   }

@@ -1,5 +1,5 @@
 import { IReduxState, ToDoStatus } from "../interfaces/interfaces";
-
+import formatDate from '../utils/formatDate';
 
 const todoList = (state: IReduxState['todoList'] = [], action: { type: string; } & any) => {
   switch (action.type) {
@@ -10,7 +10,7 @@ const todoList = (state: IReduxState['todoList'] = [], action: { type: string; }
           id: action.id,
           title: action.todo.title,
           text: action.todo.text,
-          createdTime: String(new Date()),// TODO
+          createdTime: formatDate(new Date()),
           expiredTime: action.todo.expiredTime,
           emailAddress: action.todo.emailAddress,
           status: ToDoStatus.New,

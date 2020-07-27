@@ -3,13 +3,21 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { actionSetPageType, actionAddTodo } from '../actions/actions';
 import { PageStatus, ToDoStatus } from '../interfaces/interfaces';
+import checkAll from '../utils/checkAll';
+
+
 
 type AddProps = {
   dispatch?: Dispatch;
 }
-
+type AddStates = {
+  title: string;
+  text: string;
+  expiredTime: string;
+  emailAddress: string;
+}
 @(connect() as ClassDecorator)
-export default class AddTodo extends React.Component<AddProps> {
+export default class AddTodo extends React.Component<AddProps, AddStates> {
   state = {
     title: '',
     text: '',
@@ -40,6 +48,9 @@ export default class AddTodo extends React.Component<AddProps> {
   }
 
   private createTodo = () => {
+    if (!checkAll(this.state)) {
+      return;
+    }
     const todo = {
       id: 0,
       title: this.state.title,
@@ -55,22 +66,26 @@ export default class AddTodo extends React.Component<AddProps> {
 
   render() {
     return (
-      <div>
-        <h3>Add</h3>
+      <div className='container'>
+        <h2>Add</h2>
         <form action="javascript:void(0)" onSubmit={this.createTodo}>
           <label htmlFor="">Title</label>
-          <input type="text" value={this.state.title} name='title' onChange={this.changeValue} />
+          <input type="text" className='form-control' value={this.state.title} name='title' onChange={this.changeValue} />
+          <span id='title'></span>
           <br />
           <label htmlFor="">Text</label>
-          <input type="text" value={this.state.text} name='text' onChange={this.changeValue} />
+          <input type="text" className='form-control' value={this.state.text} name='text' onChange={this.changeValue} />
+          <span id='text'></span>
           <br />
           <label htmlFor="">ExpiredTime</label>
-          <input type="text" value={this.state.expiredTime} name='expiredTime' onChange={this.changeValue} />
+          <input type="text" className='form-control' value={this.state.expiredTime} name='expiredTime' onChange={this.changeValue} />
+          <span id='expiredTime'></span>
           <br />
           <label htmlFor="">EmailAddress</label>
-          <input type="text" value={this.state.emailAddress} name='emailAddress' onChange={this.changeValue} />
+          <input type="text" className='form-control' value={this.state.emailAddress} name='emailAddress' onChange={this.changeValue} />
+          <span id='emailAddress'></span>
           <br />
-          <input type='submit' value='Create' />
+          <input type='submit' className='btn-primary' value='Create' />
         </form>
         <a href="javascript:void(0)" onClick={this.jumpToAppPage}>Back to List</a>
       </div>
