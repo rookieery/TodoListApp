@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { IReduxState, FilterStatus, ToDoStatus, PageStatus } from '../interfaces/interfaces';
+import { IReduxState, FilterStatus, ToDoStatus, PageStatus, IToDo } from '../interfaces/interfaces';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { actionSetPageType, actionDeleteTodo, actionJumpPageId, actionSetStatusType } from '../actions/actions';
@@ -25,11 +25,11 @@ export default class TodoList extends React.Component<TodoListProps> {
   private getVisibleTodoS = () => {
     switch (this.props.status) {
       case FilterStatus.New:
-        return this.props.todoList.filter(todo => todo.status === ToDoStatus.New && !isExpired(todo.expiredTime, todo.createdTime));
+        return this.props.todoList.filter(todo => todo.status === ToDoStatus.New && !isExpired(todo.expiredTime));
       case FilterStatus.Done:
-        return this.props.todoList.filter(todo => todo.status === ToDoStatus.Done && !isExpired(todo.expiredTime, todo.createdTime));
+        return this.props.todoList.filter(todo => todo.status === ToDoStatus.Done && !isExpired(todo.expiredTime));
       case FilterStatus.Expired:
-        return this.props.todoList.filter(todo => isExpired(todo.expiredTime, todo.createdTime));
+        return this.props.todoList.filter(todo => isExpired(todo.expiredTime));
       case FilterStatus.All:
       default:
         return this.props.todoList;
@@ -52,6 +52,46 @@ export default class TodoList extends React.Component<TodoListProps> {
     this.props.dispatch(actionSetStatusType(id, e.target.value as ToDoStatus));
   }
 
+  private renderStatus = (todo: IToDo) => (
+    isExpired(todo.expiredTime)
+      ?
+      <td>
+        {'Expired'}
+      </td>
+      :
+      <td>
+        <select name='status' value={todo.status} onChange={(e) => {
+          return this.changeValue(e, todo.id);
+        }}>
+          <option >{ToDoStatus.New}</option>
+          <option >{ToDoStatus.Done}</option>
+        </select>
+      </td>
+  )
+
+  private renderTodo = (todo: IToDo) => (
+    <tr key={todo.id}>
+      {
+        Object.values(todo)
+          .filter(value => (Object.values(todo).indexOf(value) <= 5))
+          .map(value => <td>{value}</td>)
+      }
+      {
+        this.renderStatus(todo)
+      }
+      <td>
+        <a href="javascript:void(0)" onClick={() => {
+          return this.jumpToEditPage(todo.id);
+        }}>Edit</a>
+        {" | "}
+        <a href="javascript:void(0)" onClick={() => {
+          return this.deleteHandler(todo.id);
+        }}>Delete</a>
+      </td>
+    </tr>
+  )
+
+
   render() {
     const todoList = this.getVisibleTodoS();
     return (
@@ -67,39 +107,7 @@ export default class TodoList extends React.Component<TodoListProps> {
           <th></th>
         </thead>
         <tbody>
-          {todoList.map(todo => (
-            <tr>{
-              Object.values(todo)
-                .filter(value => (Object.values(todo).indexOf(value) <= 5))
-                .map(value => <td>{value}</td>)
-            }
-              {
-                isExpired(todo.expiredTime, todo.createdTime)
-                  ?
-                  <td>
-                    {'Expired'}
-                  </td>
-                  :
-                  <td>
-                    <select name='status' value={todo.status} onChange={(e) => {
-                      return this.changeValue(e, todo.id);
-                    }}>
-                      <option >{ToDoStatus.New}</option>
-                      <option >{ToDoStatus.Done}</option>
-                    </select>
-                  </td>
-              }
-              <td>
-                <a href="javascript:void(0)" onClick={() => {
-                  return this.jumpToEditPage(todo.id);
-                }}>Edit</a>
-                {" | "}
-                <a href="javascript:void(0)" onClick={() => {
-                  return this.deleteHandler(todo.id);
-                }}>Delete</a>
-              </td>
-            </tr>
-          ))}
+          {todoList.map(this.renderTodo)}
         </tbody>
       </table >
     )

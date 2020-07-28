@@ -88,7 +88,7 @@ export default class EditTodo extends React.Component<EditTodoProps, EditTodoSta
           <span id='text'></span>
           <br />
           <label htmlFor="">ExpiredTime</label>
-          <input type="text" className='form-control' name='expiredTime' value={this.state.expiredTime} onChange={this.changeValue} />
+          <input type="date" className='form-control' name='expiredTime' value={this.state.expiredTime} onChange={this.changeValue} />
           <span id='expiredTime'></span>
           <br />
           <label htmlFor="">EmailAddress</label>

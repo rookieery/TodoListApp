@@ -1,14 +1,16 @@
-const isExpired = (expiredTime: string, createTime: string) => {
+import dateFormat from './formatDate';
+
+const isExpired = (expiredTime: string) => {
   const expiredTimes = expiredTime.split('-');
-  const createTimes = (createTime.split(' '))[0].split('-');
+  const currentTimes = (dateFormat(new Date()).split(' '))[0].split('-');
   for (let i = 0; i < 3; i++) {
-    if (Number(expiredTimes[i]) < Number(createTimes[i])) {
+    if (Number(expiredTimes[i]) < Number(currentTimes[i])) {
       return true;
-    } else if(Number(expiredTimes[i]) > Number(createTimes[i])) {
+    } else if(Number(expiredTimes[i]) > Number(currentTimes[i])) {
       return false;
     }
   }
-  return false;
+  return true;
 }
 
 export default isExpired;

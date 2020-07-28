@@ -78,7 +78,7 @@ export default class AddTodo extends React.Component<AddProps, AddStates> {
           <span id='text'></span>
           <br />
           <label htmlFor="">ExpiredTime</label>
-          <input type="text" className='form-control' value={this.state.expiredTime} name='expiredTime' onChange={this.changeValue} />
+          <input type="date" className='form-control' value={this.state.expiredTime} name='expiredTime' onChange={this.changeValue} />
           <span id='expiredTime'></span>
           <br />
           <label htmlFor="">EmailAddress</label>
