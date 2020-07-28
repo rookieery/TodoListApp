@@ -19,7 +19,7 @@ export default class App extends React.Component<AppProps> {
     return (
       <div className = 'container'>
         <h2>TodoList</h2>
-        <a href="javascript:void(0)" onClick={this.jumpToAddPage}>Create New</a>
+        <a href="#" onClick={this.jumpToAddPage}>Create New</a>
         <Filter />
         <TodoList />
       </div>

@@ -68,7 +68,7 @@ export default class AddTodo extends React.Component<AddProps, AddStates> {
     return (
       <div className='container'>
         <h2>Add</h2>
-        <form action="javascript:void(0)" onSubmit={this.createTodo}>
+        <form action="#" onSubmit={this.createTodo}>
           <label htmlFor="">Title</label>
           <input type="text" className='form-control' value={this.state.title} name='title' onChange={this.changeValue} />
           <span id='title'></span>
@@ -87,7 +87,7 @@ export default class AddTodo extends React.Component<AddProps, AddStates> {
           <br />
           <input type='submit' className='btn-primary' value='Create' />
         </form>
-        <a href="javascript:void(0)" onClick={this.jumpToAppPage}>Back to List</a>
+        <a href="#" onClick={this.jumpToAppPage}>Back to List</a>
       </div>
     )
   }

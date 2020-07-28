@@ -74,17 +74,17 @@ export default class TodoList extends React.Component<TodoListProps> {
       {
         Object.values(todo)
           .filter(value => (Object.values(todo).indexOf(value) <= 5))
-          .map(value => <td>{value}</td>)
+          .map((value, index) => <td key={index}>{value}</td>)
       }
       {
         this.renderStatus(todo)
       }
       <td>
-        <a href="javascript:void(0)" onClick={() => {
+        <a href="#" onClick={() => {
           return this.jumpToEditPage(todo.id);
         }}>Edit</a>
         {" | "}
-        <a href="javascript:void(0)" onClick={() => {
+        <a href="#" onClick={() => {
           return this.deleteHandler(todo.id);
         }}>Delete</a>
       </td>
@@ -97,14 +97,16 @@ export default class TodoList extends React.Component<TodoListProps> {
     return (
       <table className='table'>
         <thead>
-          <th>Id</th>
-          <th>Title</th>
-          <th>Text</th>
-          <th>CreatedTime</th>
-          <th>ExpiredTime</th>
-          <th>EmailAddress</th>
-          <th>Status</th>
-          <th></th>
+          <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Text</th>
+            <th>CreatedTime</th>
+            <th>ExpiredTime</th>
+            <th>EmailAddress</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
         </thead>
         <tbody>
           {todoList.map(this.renderTodo)}

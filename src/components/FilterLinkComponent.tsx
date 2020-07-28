@@ -25,7 +25,7 @@ export default class FilterLink extends React.Component<FilterStatusProps> {
       return <span>{this.props.filter}</span>
     }
     return (
-      <a href="javascript:void(0)" onClick={this.filterTodoList} >{this.props.filter}</a>
+      <a href="#" onClick={this.filterTodoList} >{this.props.filter}</a>
     )
   }
 }

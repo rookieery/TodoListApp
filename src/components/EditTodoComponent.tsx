@@ -78,7 +78,7 @@ export default class EditTodo extends React.Component<EditTodoProps, EditTodoSta
     return (
       <div className='container'>
         <h2>Edit</h2>
-        <form action="javascript:void(0)" onSubmit={this.saveTodo}>
+        <form action="#" onSubmit={this.saveTodo}>
           <label htmlFor="">Title</label>
           <input type="text" className='form-control' name='title' value={this.state.title} onChange={this.changeValue} />
           <span id='title'></span>
@@ -103,7 +103,7 @@ export default class EditTodo extends React.Component<EditTodoProps, EditTodoSta
           <br />
           <input type='submit' className='btn-primary' value='Save' />
         </form>
-        <a href="javascript:void(0)" onClick={this.jumpToAppPage}>Back to List</a>
+        <a href="#" onClick={this.jumpToAppPage}>Back to List</a>
       </div>
     )
   }
